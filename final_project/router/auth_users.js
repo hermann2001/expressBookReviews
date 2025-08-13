@@ -70,7 +70,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
   books[isbn]["reviews"][username] = review;
 
-  return res.status(201).json({message: "Review added or updated with success !", bookReviewsewsbooks[isbn]["reviews"] : });
+  return res.status(201).json({message: "Review added or updated with success !", bookReviews : books[isbn]["reviews"] });
 });
 
 module.exports.authenticated = regd_users;
