@@ -68,9 +68,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   const review = req.body.review;
   if (!review) res.status(404).send("Unable review !")
 
-  books[isbn][username] = review;
+  books[isbn]["reviews"][username] = review;
 
-  return res.status(201).json({message: "Review added or updated with success !"});
+  return res.status(201).json({message: "Review added or updated with success !", bookReviewsewsbooks[isbn]["reviews"] : });
 });
 
 module.exports.authenticated = regd_users;
