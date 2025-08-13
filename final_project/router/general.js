@@ -35,7 +35,7 @@ public_users.get('/author/:author',function (req, res) {
 
   const booksDetails = Object.entries(books).filter(([isbn, b]) => b.author === author);
 
-  if (booksDetails.lenght == 0) return res.status(404).send("no books with author " + author)
+  if (booksDetails.length == 0) return res.status(404).send("no books with author " + author)
 
   return res.status(200).json(booksDetails);
 });
@@ -45,9 +45,9 @@ public_users.get('/title/:title',function (req, res) {
   //Write your code here
   const title = req.params.title;
 
-  const booksDetails = Object.entries(books).filter(([isbn, b]) => b.title === title);
+  const booksDetails = Object.entries(books).find(([isbn, b]) => b.title === title);
 
-  if (booksDetails.lenght == 0) return res.status(404).send("no books with title " + title)
+  if (booksDetails.length == 0) return res.status(404).send("no books with title " + title)
 
   return res.status(200).json(booksDetails);
 });
