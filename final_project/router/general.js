@@ -19,9 +19,18 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
+public_users.get('/', async function (req, res) {
   //Write your code here
   return res.send(JSON.stringify(books, null, 4));
+});
+
+public_users.get('/async', (req, res) => {
+    // Appel à l'API publique locale pour récupérer la liste des livres
+    axios.get("http://localhost:5000/").then(response =>{
+        return res.send(response.data);
+    }).catch (error => {
+        return res.status(500).json({ error: "Erreur lors de la récupération des livres" });
+    });
 });
 
 // Get book details based on ISBN
