@@ -25,11 +25,10 @@ public_users.get('/', async function (req, res) {
 });
 
 public_users.get('/async', (req, res) => {
-    // Appel à l'API publique locale pour récupérer la liste des livres
     axios.get("http://localhost:5000/").then(response =>{
         return res.send(response.data);
     }).catch (error => {
-        return res.status(500).json({ error: "Erreur lors de la récupération des livres" });
+        return res.status(500).json({ error: error });
     });
 });
 
@@ -44,6 +43,14 @@ public_users.get('/isbn/:isbn',function (req, res) {
 
   return res.status(200).json({isbn: isbn, book : books[isbn]});
  });
+
+public_users.get('/async/isbn/:isbn', (req, res) => {
+    axios.get("http://localhost:5000/isbn/:isbn").then(response =>{
+        return res.send(response.data);
+    }).catch (error => {
+        return res.status(500).json({ error: error });
+    });
+});
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
@@ -57,6 +64,14 @@ public_users.get('/author/:author',function (req, res) {
   return res.status(200).json(booksDetails);
 });
 
+public_users.get('/async/author/:author', (req, res) => {
+    axios.get("http://localhost:5000/author/:author").then(response =>{
+        return res.send(response.data);
+    }).catch (error => {
+        return res.status(500).json({ error: error });
+    });
+});
+
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
@@ -67,6 +82,14 @@ public_users.get('/title/:title',function (req, res) {
   if (!bookDetails) return res.status(404).send("no books with title " + title)
 
   return res.status(200).json(bookDetails);
+});
+
+public_users.get('/async/title/:title', (req, res) => {
+    axios.get("http://localhost:5000/title/:title").then(response =>{
+        return res.send(response.data);
+    }).catch (error => {
+        return res.status(500).json({ error: error });
+    });
 });
 
 //  Get book review
