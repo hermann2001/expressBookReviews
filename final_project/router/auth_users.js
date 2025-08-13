@@ -54,10 +54,23 @@ regd_users.post("/login", (req,res) => {
   return res.status(200).json({message: "You are logged in !"});
 });
 
-// Add a book review
+// Add or Update a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const isbn = req.params.isbn;
+
+  if (!books[isbn]) {
+    return res.status(404).send("no book with isbn " + isbn)
+  }
+
+  const username = req.session.authorization["username"];
+
+  const review = req.body.review;
+  if (!review) res.status(404).send("Unable review !")
+
+  books[isbn][username] = review;
+
+  return res.status(201).json({message: "Review added or updated with success !"});
 });
 
 module.exports.authenticated = regd_users;
