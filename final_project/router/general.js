@@ -31,13 +31,17 @@ public_users.get('/author/:author',function (req, res) {
 
   const bookDetails = Object.entries(books).filter(([isbn, b]) => b.author === author);
 
-  return res.status(200).json(JSON.stringify(bookDetails));
+  return res.status(200).json(bookDetails);
 });
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const title = req.params.title;
+
+  const bookDetails = Object.entries(books).filter(([isbn, b]) => b.title === title);
+
+  return res.status(200).json(bookDetails);
 });
 
 //  Get book review
