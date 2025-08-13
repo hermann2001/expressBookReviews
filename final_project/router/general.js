@@ -7,7 +7,15 @@ const public_users = express.Router();
 
 public_users.post("/register", (req,res) => {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!username || !password) return res.status(404).json({message: "Unable username and password !"});
+
+  if (isValid(username)) return res.status(404).json({message: "This user already exist !"});
+
+  users.push({"username" : username, "password" : password});
+  return res.status(201).json({message: "User successfully redistered !"});
 });
 
 // Get the book list available in the shop
@@ -45,11 +53,11 @@ public_users.get('/title/:title',function (req, res) {
   //Write your code here
   const title = req.params.title;
 
-  const booksDetails = Object.entries(books).find(([isbn, b]) => b.title === title);
+  const bookDetails = Object.entries(books).find(([isbn, b]) => b.title === title);
 
-  if (booksDetails.length == 0) return res.status(404).send("no books with title " + title)
+  if (!bookDetails) return res.status(404).send("no books with title " + title)
 
-  return res.status(200).json(booksDetails);
+  return res.status(200).json(bookDetails);
 });
 
 //  Get book review
